@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .chat_container {
+            width: 100%;
+            height: 100vh;
+            background: rgba(30, 30, 30, 0.85);
+          
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .chat-header {
+            background: rgba(0, 120, 255, 0.8);
+            color: white;
+            padding: 20px;
+           
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .display{width: 60px; height: 30px; border-radius:50px ; border: 1px solid; position: absolute; right: 30px; }
+        .mode{width: 26px; height: 29px; border-radius: 50%; background-color: white; position: absolute; left: 0; cursor: pointer;}
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+      
+        .usermessage {
+         
+            color: white;
+            align-self: flex-end;
+            margin-top: 5px;
+        }
+        .botmessage {
+          
+            align-self: flex-start;
+        }
+
+        .data{margin-top: 5px; 
+              padding: 12px;
+            margin: 2px 0;
+            border-radius: 10px;
+           
+
+            
+        }
+        .user{margin-top: 5px; 
+              padding: 12px;
+            margin: 2px 0;
+            border-radius: 10px;
+           }
+        .chat_input {
+            display: flex;
+            border-top: 1px solid #444;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.85);
+        }
+        .chat_input input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #333;
+            color: white;
+            outline: none;
+        }
+        .chat_input button {
+            background: #0078ff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .chat_input button:hover {
+            background: #005ecb;
+        }
+
+        h1 {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 3rem;
+    background: linear-gradient(90deg, #ff8a00, #e52e71, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+}
+
+
+
+        @media (max-width: 768px) {
+            .chat-header {
+                font-size: 20px;
+            }
+            .chat-input input {
+                font-size: 14px;
+            }
+
+          
+        }
+
+        @media (max-width: 460px) {
+            h1{font-size: 2rem; margin-top: 50%;}
+        }
+    </style>
+</head>
+<body>
+    <div class="chat_container">
+        <div class="chat-header">
+            <div>AI Chatbot</div>
+            <div class="display"><div class="mode"></div></div>
+        </div>
+
+        <h1>How can i help you</h1>
+
+        <div class="chat-body">
+           
+            <div class="chatmessage botmessage"></div>
+            <div class="chatmessage usermessage"></div>
+        </div>
+        <form class="chat_input">
+            <input type="text" placeholder="Type a message...">
+            <button>Send</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    "use strict";
+
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+e.preventDefault(); 
+
+let userInput = document.querySelector("input").value;
+if (!userInput.trim()) return;
+const apiKey = "AIzaSyCIaXA-mo-G9IUhXegJaYDRL--nX5Pq1r4"; 
+const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+
+const requestBody = {
+    contents: [{ parts: [{ text: userInput }] }]
+};
+
+fetch(url, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(requestBody)
+})
+.then(response => response.json())
+.then(data => {
+    console.log( 
+    );
+  
+document.querySelector("h1").style.display='none'
+    document.querySelector("input").value=''
+   
+    document.querySelector(".usermessage").innerHTML+=`<div class='data'>${data.candidates[0].content.parts[0].text}</div>`
+
+ document.querySelector(".botmessage").innerHTML+=`<div class='user'>${userInput}</div>`
+
+
+ document.querySelectorAll(".user").forEach(e => e.style.backgroundColor = 'rgba(50, 50, 50, 0.8)');
+document.querySelectorAll(".data").forEach(e => e.style.backgroundColor = 'rgba(0, 120, 255, 0.8)');
+
+
+ 
+})
+.catch(error => {
+    console.error("Error:", error);
+});
+});
+
+document.querySelector(".mode").addEventListener("click", function(){
+    let currentLeft = (window.getComputedStyle(document.querySelector(".mode")).left); 
+    
+   if( currentLeft=='33px'){
+    document.querySelector(".mode").animate({left:['33px', '0']}, { duration: 500, fill: "both" })
+      document.querySelector('.chat_container').style.backgroundColor='rgba(30, 30, 30, 0.85)'
+   }
+   else{
+    document.querySelector(".mode").animate({left:['0', '33px']},{duration:500,fill:"both"})
+
+    document.querySelector('.chat_container').style.backgroundColor='white'
+    
+   }
+
+
+})
+
+
+
+
+
+</script>
+</html>

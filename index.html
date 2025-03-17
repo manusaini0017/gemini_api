@@ -99,7 +99,7 @@
         }
         .chat_input button {
             background: #0078ff;
-            color: rgb(20, 19, 19);
+            color: white;
             border: none;
             padding: 12px 20px;
             margin-left: 10px;
@@ -118,8 +118,13 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-style: italic;
-}
+    animation: moveh1 2s infinite alternate linear;
+    }
 
+    @keyframes moveh1 {
+        0%{ background-position-x:0px;}
+        100%{ background-position-x:500px;}
+    }
 
 
         @media (max-width: 768px) {
@@ -212,7 +217,7 @@ document.querySelector(".send").removeAttribute("disabled")
 
 
 
-document.querySelector(".mode").addEventListener("click", function(){
+document.querySelector(".display").addEventListener("click", function(){
     let currentLeft = (window.getComputedStyle(document.querySelector(".mode")).left); 
     
    if( currentLeft=='33px'){

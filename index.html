@@ -12,7 +12,7 @@
         }
         body {
             font-family: Arial, sans-serif;
-        
+            background: url('https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,6 +22,7 @@
         .chat_container {
             width: 100%;
             height: 100vh;
+          
             background: rgba(30, 30, 30, 0.85);
           
             display: flex;
@@ -80,6 +81,7 @@
               padding: 12px;
             margin: 2px 0;
             border-radius: 10px;
+         
            }
         .chat_input {
             display: flex;
@@ -125,6 +127,14 @@
         0%{ background-position-x:0px;}
         100%{ background-position-x:500px;}
     }
+
+    .you{color:#eb0707 ;  font-size: 12px; font-weight: 900; display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 5px;}
+    .you div:nth-child(2){color: #eeebf3;  font-size: 8px; margin-left: 10px;}
+
+    .AI{color:#0a0a0a ; font-size: 13px; font-weight: 900; display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 5px;}
+    .AI div:nth-child(2){color: #eeebf3;  font-size: 8px; }
 
 
         @media (max-width: 768px) {
@@ -174,6 +184,8 @@ e.preventDefault();
 document.querySelector(".send").setAttribute("disabled","")
 
 let userInput = document.querySelector("input").value;
+
+
 if (!userInput.trim()) return;
 const apiKey = "AIzaSyCIaXA-mo-G9IUhXegJaYDRL--nX5Pq1r4"; 
 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
@@ -197,12 +209,21 @@ fetch(url, {
 document.querySelector("h1").style.display='none'
     document.querySelector("input").value=''
     document.querySelector(".clearchat").style.display='block'
+    let c=new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+console.log(c)
    
-    document.querySelector(".usermessage").innerHTML+=`<div class='data'>${data.candidates[0].content.parts[0].text}</div>`
+    document.querySelector(".usermessage").innerHTML+=`<div class='data'>
+          <div class="AI"><div>AI</div><div>${c}</div></div>
+          <div>  ${data.candidates[0].content.parts[0].text}</div>
+        </div>`
 
- document.querySelector(".botmessage").innerHTML+=`<div class='user'>${userInput}</div>`
+ document.querySelector(".botmessage").innerHTML+=`<div class='user'>
+    <div class="you"><div>you</div><div>${c}</div></div>
+  
+        <div>${userInput}</div>
+            </div>`
 
-
+          
  document.querySelectorAll(".user").forEach(e => e.style.backgroundColor = 'rgba(50, 50, 50, 0.8)');
 document.querySelectorAll(".data").forEach(e => e.style.backgroundColor = 'rgba(0, 120, 255, 0.8)');
 

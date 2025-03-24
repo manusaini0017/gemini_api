@@ -21,7 +21,7 @@
         }
         .chat_container {
             width: 100%;
-            height: 100vh;
+            height: 100%;
           
             background: rgba(30, 30, 30, 0.85);
           
@@ -53,7 +53,7 @@
             position: relative;
         }
 
-        .clearchat{width: 100px; height: 40px; border-radius: 10px;  border: 1px solid rgba(30, 30, 30, 0.85); background-color: rgba(30, 30, 30, 0.85); color: white;
+        .clearchat{width: 100px; height: 40px; border-radius: 10px;  border: 1px solid #9d9a9acc; background-color: #0e0e0ed9; color: white;
         position: absolute; top: 76px; right: 20px; display: none; cursor: pointer;}
     
 
@@ -210,7 +210,7 @@ document.querySelector("h1").style.display='none'
     document.querySelector("input").value=''
     document.querySelector(".clearchat").style.display='block'
     let c=new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-console.log(c)
+
    
     document.querySelector(".usermessage").innerHTML+=`<div class='data'>
           <div class="AI"><div>AI</div><div>${c}</div></div>

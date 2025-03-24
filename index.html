@@ -291,6 +291,22 @@ document.querySelector(".botmessage").innerHTML='';
 document.querySelector("h1").style.display='block';
 document.querySelector(".clearchat").style.display='none'
 
+let h1element="How can i help you";
+
+        let arry=h1element.split("");
+      
+        console.log(arry)
+       
+        let collectionofarryelement=''
+       
+        arry.forEach((i,index)=>{
+setTimeout(()=>{
+    collectionofarryelement+=i;
+
+    document.querySelector("h1").innerHTML=collectionofarryelement;
+},100*index)
+        })
+
 })
 
 

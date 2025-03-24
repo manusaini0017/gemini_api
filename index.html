@@ -165,7 +165,7 @@
             <div class="display"><div class="mode"></div></div>
         </div>
 
-        <h1>How can i help you</h1>
+        <h1></h1>
 
         <div class="chat-body">
          
@@ -182,6 +182,28 @@
 
 <script>
     "use strict";
+
+    window.addEventListener("load", function(){
+
+      
+let h1element="How can i help you";
+
+        let arry=h1element.split("");
+      
+        console.log(arry)
+       
+        let collectionofarryelement=''
+       
+        arry.forEach((i,index)=>{
+setTimeout(()=>{
+    collectionofarryelement+=i;
+
+    document.querySelector("h1").innerHTML=collectionofarryelement;
+},100*index)
+        })
+
+      
+    })
 
 
     document.querySelector("form").addEventListener("submit", function (e) {
